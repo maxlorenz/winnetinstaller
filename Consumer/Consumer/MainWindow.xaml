@@ -1,0 +1,16 @@
+﻿<Window x:Class="Consumer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <TextBox x:Name="txtServer" Height="23" Margin="10,10,235,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="localhost:12345"/>
+        <TextBox x:Name="txtCommand" Height="23" Margin="10,38,235,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button Content="Execute" Margin="0,38,155,0" VerticalAlignment="Top" Click="Button_Click" HorizontalAlignment="Right" Width="75"/>
+        <TextBox x:Name="txtOutput" TextWrapping="Wrap" Text="Output" Background="Black" Foreground="#FFFFFDFD" FontFamily="Consolas" FontSize="11" Margin="0,66,155,0"/>
+        <ListBox x:Name="lstServers" Margin="0,10,0,64" HorizontalAlignment="Right" Width="150"/>
+        <Button Content="Add" Margin="0,10,155,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="Button_Click_1"/>
+        <Button Content="Info" Margin="0,0,10,10" Click="Button_Click_2" HorizontalAlignment="Right" Width="140" Height="22" VerticalAlignment="Bottom"/>
+        <Button Content="test.bat" Margin="0,0,10,37" HorizontalAlignment="Right" Width="140" Height="22" VerticalAlignment="Bottom" Click="Button_Click_3"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,13 @@
+D:\projekte\Windows Installation\Consumer\Consumer\bin\Debug\Consumer.exe.config
+D:\projekte\Windows Installation\Consumer\Consumer\obj\Debug\Consumer.csprojResolveAssemblyReference.cache
+D:\projekte\Windows Installation\Consumer\Consumer\obj\Debug\MainWindow.baml
+D:\projekte\Windows Installation\Consumer\Consumer\obj\Debug\MainWindow.g.cs
+D:\projekte\Windows Installation\Consumer\Consumer\obj\Debug\App.g.cs
+D:\projekte\Windows Installation\Consumer\Consumer\obj\Debug\Consumer_MarkupCompile.cache
+D:\projekte\Windows Installation\Consumer\Consumer\obj\Debug\Consumer.g.resources
+D:\projekte\Windows Installation\Consumer\Consumer\obj\Debug\Consumer.Properties.Resources.resources
+D:\projekte\Windows Installation\Consumer\Consumer\obj\Debug\Consumer.csproj.GenerateResource.Cache
+D:\projekte\Windows Installation\Consumer\Consumer\bin\Debug\Consumer.exe
+D:\projekte\Windows Installation\Consumer\Consumer\bin\Debug\Consumer.pdb
+D:\projekte\Windows Installation\Consumer\Consumer\obj\Debug\Consumer.exe
+D:\projekte\Windows Installation\Consumer\Consumer\obj\Debug\Consumer.pdb
