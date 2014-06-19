@@ -57,9 +57,9 @@ func plainInfoHandler(w http.ResponseWriter, r *http.Request) {
 		} else if command.Error {
 			fmt.Fprintf(w, "Error: ")
 		} else {
-			fmt.Fprintf(w, "Successful (" + strconv.Itoa(i) + "): ")
+			fmt.Fprintf(w, "Successful ("+strconv.Itoa(i)+"): ")
 		}
-		fmt.Fprintf(w, command.Command + "\n")
+		fmt.Fprintf(w, command.Command+"\n")
 		fmt.Fprintf(w, "%s\n\n", command.FullCommand)
 	}
 }
