@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Windows installer</title>
+
+  <link rel="stylesheet" type="text/css" href="./css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="./css/main.css">
+
+</head>
+<body>
+
+<div class="ui two column grid card">
+  <div class="column">
+    <div class="ui form">
+      <div class="field">
+        <label>IP</label>
+        <input type="text" id="ip" value="10.43.64.213">
+      </div>
+
+      <button class="ui blue button" onclick="javascript:setIP();">Set IP</button>
+    </div>
+  </div>
+  <div class="column">
+  <br>
+    <div class="ui breadcrumb">
+      <a class="section" href="javascript:myInstall();">Windows installieren</a>
+      <div class="divider"> / </div>
+      <a class="section" href="javascript:myWMIC();">WMIC Info</a>
+      <div class="divider"> / </div>
+      <a class="section" href="javascript:myReboot();">Reboot</a>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<div class="ui two column grid card">
+  <div class="column">
+    <div class="ui form">
+      <div class="field">
+        <label>Command</label>
+        <input type="text" id="i">
+      </div>
+
+      <button class="ui blue button" onclick="javascript:myExecute();">Execute</button>
+    </div>
+  </div>
+  <div class="column">
+    <iframe src="" id="iframe"></iframe>
+  </div>
+</div>
+
+<br>
+
+<div class="ui two column grid card">
+  <div class="column">
+    <div class="ui form">
+      <div class="field">
+        <label>Ergebnis Nummer</label>
+        <input type="text" id="n">
+      </div>
+
+      <button class="ui blue button" onclick="javascript:findResult();">Finden</button>
+    </div>
+  </div>
+  <div class="column">
+    <iframe src="" id="result"></iframe>
+  </div>
+</div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+  <script type="text/javascript">
+    var ip = '10.43.64.213';
+
+    function executeRequest (command, callback) {
+      var req = new XMLHttpRequest();
+
+      req.onreadystatechange = function () {
+        if (this.readyState == 4) {
+          callback(command);
+        }
+      }
+
+      req.open('get', 'http://'+ip+':12345/' + command, true);
+      req.send();
+    }
+
+    function myExecute() {
+
+      executeRequest(i.value, function(command) {
+        alert("Ausgeführt: " + command);
+        document.getElementById("iframe").src = 'http://'+ip+':12345/plain/info';
+      });
+
+      document.getElementById("i").value = "";
+    }
+
+    function setIP() {
+      ip = document.getElementById('ip').value;
+      document.getElementById('ip').value = "";
+    }
+
+    function findResult () {
+      document.getElementById("result").src = "http://"+ip+":12345/plain/result/" + document.getElementById("n").value;
+    }
+
+    function myInstall () {
+      alert("Installation gestartet.");
+
+      executeRequest("\\\\wds01noham.bo.nexinto.com\\osdeploy\\webinterface\\installdummy.bat", function () {
+        alert("Windows installation wurde abgeschlossen. Sie können den PC nun neu starten.");
+        document.getElementById("iframe").src = 'http://'+ip+':12345/plain/info';
+      });
+    }
+
+    function myWMIC () {
+      executeRequest("wmic computersystem get domain, Manufacturer, Model, username", function () {
+        document.getElementById("iframe").src = 'http://'+ip+':12345/plain/info';
+      });
+    }
+
+    function myReboot () {
+      executeRequest("wpeutil reboot", function () {
+        alert("Computer wird neu gestartet.");
+        document.getElementById("iframe").src = 'http://'+ip+':12345/plain/info';
+      });
+    }
+
+  </script>
+</body>
+</html>
