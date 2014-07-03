@@ -38,16 +38,6 @@ namespace Consumer
             lstServers.Items.Add(txtServer.Text);
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            if (lstServers.SelectedIndex == -1)
-            {
-                return;
-            }
-
-            infoView.Navigate(new Uri("http://" + lstServers.SelectedItem + "/html/info"));
-        }
-
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             executeRequest("cmd /c echo list disk | diskpart");
@@ -70,7 +60,7 @@ namespace Consumer
                 return;
             }
 
-            infoView.Navigate(new Uri("http://" + lstServers.SelectedItem + "/plain/info"));
+            infoView.Navigate(new Uri("http://" + lstServers.SelectedItem + "/_info"));
         }
     }
 }
