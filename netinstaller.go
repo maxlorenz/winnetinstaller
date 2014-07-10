@@ -1,6 +1,7 @@
 package main
 
 import (
+	"./broadcast"
 	"fmt"
 	"net"
 	"net/http"
@@ -8,7 +9,6 @@ import (
 	"os/exec"
 	"strconv"
 	"strings"
-	"./broadcast"
 )
 
 type command struct {
@@ -59,8 +59,14 @@ func execHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	fmt.Println(net.InterfaceAddrs())
-	broadcast.BroadcastIP("10.43.64.255:12345")
+	ips, _ := net.InterfaceAddrs()
+
+	for i, ip := range ips {
+		fmt.Printf("IP %d:\t %v:12345\n", i, ip)
+
+		broadcastIP := broadcast.IpToBroadcast(ip.String())
+		broadcast.Broadcast(broadcastIP + ":12345")
+	}
 
 	http.HandleFunc("/", execHandler)
 	http.HandleFunc("/_info/", infoHandler)
