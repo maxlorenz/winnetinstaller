@@ -47,7 +47,11 @@ namespace Consumer
 
                     lstServers.Dispatcher.BeginInvoke((Action) (() =>
                     {
-                        lstServers.Items.Add(newClient + ":12345");
+                        newClient += ":12345";
+
+                        if (lstServers.Items.IndexOf(newClient) == -1)
+                            lstServers.Items.Add(newClient);
+
                         newClient = "";
                     }));
 
@@ -79,11 +83,14 @@ namespace Consumer
             worker.DoWork += (sender, args) => {
                 try
                 {
-                    args.Result = new WebClient().DownloadString("http://" + server + "/" + Uri.EscapeDataString(command));
+                    var vc = new WebClient();
+                    vc.Proxy = null;
+
+                    args.Result = vc.DownloadString("http://" + server + "/" + Uri.EscapeDataString(command));
                 }
                 catch (Exception e)
                 {
-                    args.Result = "Fehler bei der Verbindung.";
+                    args.Result = e.Message;
                 }
             };
 
@@ -101,7 +108,8 @@ namespace Consumer
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            lstServers.Items.Add(txtServer.Text);
+            if (lstServers.Items.IndexOf(txtServer.Text) == -1)
+                lstServers.Items.Add(txtServer.Text);
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
