@@ -3,15 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="536" Width="911.333">
     <Grid>
-        <TextBox x:Name="txtServer" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="localhost:12345" HorizontalAlignment="Left" Width="116"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="txtServer" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="localhost" HorizontalAlignment="Left" Width="116"/>
         <TextBox x:Name="txtCommand" Height="23" Margin="131,0,90,10" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
-        <Button x:Name="execButton" Content="Ausführen" Margin="0,0,10,11" VerticalAlignment="Bottom" Click="Button_Click" HorizontalAlignment="Right" Width="75">
-        </Button>
+        <Button x:Name="execButton" Content="Ausführen" Margin="0,0,10,11" VerticalAlignment="Bottom" Click="Button_Click" HorizontalAlignment="Right" Width="75" Height="22"/>
         <ListBox x:Name="lstServers" Margin="10,66,0,10" HorizontalAlignment="Left" Width="116"/>
-        <Button Content="Hinzufügen" Margin="10,38,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="116" Click="Button_Click_1"/>
-        <Button Content="Diskinfo" HorizontalAlignment="Left" Margin="291,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_3"/>
-        <Button Content="Install" HorizontalAlignment="Left" Margin="131,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_4"/>
-        <Button Content="Reboot" HorizontalAlignment="Left" Margin="211,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_5"/>
+        <Button Content="Hinzufügen" Margin="10,38,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="116" Click="Button_Click_1" Height="22"/>
+        <Button Content="Diskinfo" HorizontalAlignment="Left" Margin="291,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_3" Height="22"/>
+        <Button Content="Install" HorizontalAlignment="Left" Margin="131,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_4" Height="22"/>
+        <Button Content="Reboot" HorizontalAlignment="Left" Margin="211,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_5" Height="22"/>
         <TextBox x:Name="output" Margin="131,38,10,38" Text="-- output --" FontFamily="Consolas" Background="Black" Foreground="Silver" IsUndoEnabled="False" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <TextBox.BorderBrush>
                 <LinearGradientBrush EndPoint="0,20" MappingMode="Absolute" StartPoint="0,0">
@@ -21,9 +23,9 @@
                 </LinearGradientBrush>
             </TextBox.BorderBrush>
         </TextBox>
-        <Button Content="Ausgeführte Befehle" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="130" Click="Button_Click_2"/>
-        <Button Content="Hardware" HorizontalAlignment="Left" Margin="371,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_7"/>
-        <Button Content="Laufende Befehle" HorizontalAlignment="Right" Margin="0,10,145,0" VerticalAlignment="Top" Width="104" Click="Button_Click_8"/>
+        <Button Content="Ausgeführte Befehle" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="130" Click="Button_Click_2" Height="22"/>
+        <Button Content="Laufende Befehle" HorizontalAlignment="Right" Margin="0,10,145,0" VerticalAlignment="Top" Width="104" Click="Button_Click_8" Height="22"/>
+        <Button Content="Ergebnis&#xD;&#xA;" HorizontalAlignment="Right" Margin="0,10,254,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click_6"/>
 
     </Grid>
 </Window>

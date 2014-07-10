@@ -13,9 +13,8 @@ namespace Consumer
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        WebClient client;
         String server, newClient;
+        Strint PORT = ":12345";
 
         public MainWindow()
         {
@@ -47,7 +46,7 @@ namespace Consumer
 
                     lstServers.Dispatcher.BeginInvoke((Action) (() =>
                     {
-                        newClient += ":12345";
+                        newClient += PORT;
 
                         if (lstServers.Items.IndexOf(newClient) == -1)
                             lstServers.Items.Add(newClient);
@@ -66,7 +65,6 @@ namespace Consumer
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             executeRequest(txtCommand.Text);
-            executeRequest("_running");
         }
 
         private void executeRequest(String command)
@@ -78,15 +76,13 @@ namespace Consumer
 
             var worker = new BackgroundWorker();
 
-            server = lstServers.SelectedItem.ToString();
+            server = lstServers.SelectedItem.ToString() + PORT;
 
             worker.DoWork += (sender, args) => {
                 try
                 {
-                    var vc = new WebClient();
-                    vc.Proxy = null;
-
-                    args.Result = vc.DownloadString("http://" + server + "/" + Uri.EscapeDataString(command));
+                    var wc = new MyWebClient();
+                    args.Result = wc.DownloadString("http://" + server + "/" + Uri.EscapeDataString(command));
                 }
                 catch (Exception e)
                 {
@@ -103,6 +99,7 @@ namespace Consumer
             };
 
             worker.RunWorkerAsync();
+            output.Text = "Wird ausgeführt...";
 
         }
 
@@ -132,14 +129,14 @@ namespace Consumer
             executeRequest("_info");
         }
 
-        private void Button_Click_7(object sender, RoutedEventArgs e)
-        {
-            executeRequest("wmic computersystem get Caption, Manufacturer, Model");
-        }
-
         private void Button_Click_8(object sender, RoutedEventArgs e)
         {
             executeRequest("_running");
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            executeRequest("_result/" + txtCommand.Text);
         }
     }
 }

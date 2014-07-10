@@ -32,9 +32,11 @@ func exitHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func infoHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "All processes:\n--------------\n\n")
+	fmt.Fprintf(w, "Completed processes:\n--------------------\n\n")
 	for n, command := range commands {
-		fmt.Fprintf(w, "(%d): \t%v\n", n, command)
+		if !command.Running {
+			fmt.Fprintf(w, "(%d): \t%v \nError: %v\n\n", n, command.Command, command.Error)
+		}
 	}
 }
 
@@ -62,8 +64,13 @@ func execHandler(w http.ResponseWriter, r *http.Request) {
 
 	// args[0] is the command, args[1:] are the options.
 	// e.g. ping www.google.de : args = ["ping", "www.google.de"]
-	out, _ := exec.Command(args[0], args[1:]...).Output()
+	out, err := exec.Command(args[0], args[1:]...).Output()
 	commands[place].Result = string(out)
+
+	if err != nil {
+		commands[place].Error = true
+		commands[place].Result = "Command did not execute correctly"
+	}
 
 	commands[place].Running = false
 	fmt.Fprint(w, commands[place].Result)
