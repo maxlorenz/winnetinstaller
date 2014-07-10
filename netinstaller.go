@@ -17,6 +17,14 @@ type command struct {
 	Running, Error  bool
 }
 
+func (c command) String() string {
+	if !c.Error {
+		return fmt.Sprintf("%v\nFull Command: %v\nRunning: %v\n", c.Command, c.FullCommand, c.Running)
+	} else {
+		return fmt.Sprintf("%v\nFull Command: %v\nError!\n", c.Command, c.FullCommand)
+	}
+}
+
 var commands []command
 
 func exitHandler(w http.ResponseWriter, r *http.Request) {
@@ -24,16 +32,19 @@ func exitHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func infoHandler(w http.ResponseWriter, r *http.Request) {
-
+	fmt.Fprintf(w, "All processes:\n--------------\n\n")
 	for n, command := range commands {
-		switch command.Running {
-		case true:
-			fmt.Fprintf(w, "(%d) Running:\t %v\n", n, command.Command)
-		case false:
-			fmt.Fprintf(w, "(%d) Completed:\t %v\n", n, command.Command)
+		fmt.Fprintf(w, "(%d): \t%v\n", n, command)
+	}
+}
+
+func runningHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Running processes:\n------------------\n\n")
+	for _, command := range commands {
+		if command.Running {
+			fmt.Fprintf(w, "%v\n%v\n\n", command.Command, command.FullCommand)
 		}
 	}
-
 }
 
 func resultHandler(w http.ResponseWriter, r *http.Request) {
@@ -55,7 +66,7 @@ func execHandler(w http.ResponseWriter, r *http.Request) {
 	commands[place].Result = string(out)
 
 	commands[place].Running = false
-	fmt.Fprintf(w, commands[place].Result)
+	fmt.Fprint(w, commands[place].Result)
 }
 
 func main() {
@@ -71,6 +82,7 @@ func main() {
 	http.HandleFunc("/", execHandler)
 	http.HandleFunc("/_info/", infoHandler)
 	http.HandleFunc("/_result/", resultHandler)
+	http.HandleFunc("/_running/", runningHandler)
 	http.HandleFunc("/exit/", exitHandler)
 	http.HandleFunc("/favicon.ico", nil)
 
