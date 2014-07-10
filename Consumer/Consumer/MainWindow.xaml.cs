@@ -14,7 +14,7 @@ namespace Consumer
     public partial class MainWindow : Window
     {
         String server, newClient;
-        Strint PORT = ":12345";
+        String PORT = ":12345";
 
         public MainWindow()
         {
@@ -46,8 +46,6 @@ namespace Consumer
 
                     lstServers.Dispatcher.BeginInvoke((Action) (() =>
                     {
-                        newClient += PORT;
-
                         if (lstServers.Items.IndexOf(newClient) == -1)
                             lstServers.Items.Add(newClient);
 
@@ -111,7 +109,7 @@ namespace Consumer
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            executeRequest("cmd /c echo list disk | diskpart");
+            executeRequest("wmic computersystem get Model");
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
@@ -122,6 +120,7 @@ namespace Consumer
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
             executeRequest("wpeutil reboot");
+            lstServers.Items.RemoveAt(lstServers.SelectedIndex);
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
